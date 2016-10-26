@@ -1,0 +1,68 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 22/10/2016, 11:02:09 PM
+    Author     : Kevin
+*/
+
+/*Pantalla pequeña*/
+@media screen and (max-width: 768px) {
+    sm.columnas{
+        display: inline-block;
+        float:left;
+        margin: 0;
+    }
+    sm.una.columnas{
+      width: 8.33%;
+    }
+    sm.dos.columnas{
+      width: 16.66%;
+    }
+    sm.tres.columnas{
+      width: 24.99%;
+    }
+    sm.cuatro.columnas{
+      width: 33.32%;
+    }
+    sm.cinco.columnas{
+      width: 41.65%;
+    }
+    sm.seis.columnas {
+      width: 49.98%;
+    }
+    sm.siete.columnas{
+      width: 58.31%;
+    }
+    sm.ocho.columnas{
+      width: 66.64%;
+    }
+    sm.nueve.columnas{
+      width: 74.97%;
+    }
+    sm.diez.columnas{
+      width: 83.3%;
+    }
+    sm.once.columnas{
+      width: 91.63%;
+    }
+    sm.doce.columnas{
+      width: 100%;
+    }
+}
+
+/*Pantalla mediana*/
+@media (min-width:992px){
+    .md{
+        
+    }
+}
+
+/*Pantalla grande*/
+@media (min-width:1200px){
+    .lg{
+        
+    }
+}
