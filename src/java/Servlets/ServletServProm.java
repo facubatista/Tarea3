@@ -14,6 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import webservices.DataPromociones;
+import webservices.DataServicios;
+import webservices.WSProveedores;
+import webservices.WSProveedoresService;
 
 /**
  *
@@ -35,16 +39,33 @@ public class ServletServProm extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        WSProveedoresService wsps = new WSProveedoresService();
+        WSProveedores wsp = wsps.getWSProveedoresPort();
+        
         HttpSession sesion = request.getSession();
         
         //También se fija que haya iniciado sesion
         if(request.getParameter("Servicios")!=null && sesion.getAttribute("nickProveedor")!=null){
+            DataServicios serviciosP = wsp.listarServiciosBuscados((String)sesion.getAttribute("nickProveedor"));
+            sesion.setAttribute("serviciosDeP", serviciosP);
             
+            request.setAttribute("active", "Servicios");
             RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Servicios.jsp");
             dispatcher.forward(request, response);
         }else{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+            if(request.getParameter("Promociones")!=null && sesion.getAttribute("nickProveedor")!=null){
+            DataPromociones promosP = wsp.listarPromocionesBuscadas((String)sesion.getAttribute("nickProveedor"));
+            sesion.setAttribute("promosDeP", promosP);
+            sesion.setAttribute("promosDeP", promosP);
+            
+            //Se setea el web service del proveedor, es necesario para los servicios de la promocion
+            request.setAttribute("webServiceP", wsp);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Promociones.jsp");
             dispatcher.forward(request, response);
+            }else{
+                RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                dispatcher.forward(request, response);
+            }
         }
     }
 

@@ -4,6 +4,8 @@
     Author     : Kevin
 --%>
 
+<%@page import="webservices.DataServicio"%>
+<%@page import="webservices.DataServicios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,41 +16,31 @@
         <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
     </head>
     <body style="padding-top: 65px">
-        <%
-        String nomProv = "";
-        if(session.getAttribute("nomProveedor")!=null){
-            nomProv = (String) session.getAttribute("nomProveedor");
-        } 
-        %>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">Bienvenido <%=nomProv%></a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav">
-                    <li class="active"><a href="/DispositivoMovil/ServletServProm?Servicios=true">Servicios</a></li>
-                    <li><a href="#about">Promociones</a></li>
-                    <li><a href="/DispositivoMovil/ServletReservas?verReservas=true">Reservas</a></li>
-                    <li>
-                        <!--<img src="/DispositivoMovil/Img/logout.png" alt="imagen logoutusuario" class="img-responsive">-->
-                        <a href="/DispositivoMovil/ServletSesion?cerrarSesion=true">
-                            <img src="/DispositivoMovil/Img/logout.png" alt="imagen logoutusuario" class="img-responsive" style="width:20px;float:left;margin-right: 5px;">
-                            Salir
-                        </a>
-                    </li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
-        <div class="container">      
+        <!--El parametro que pasa en el include es para decirle que pestaña sombrear en el menu, indicando en que pagina se esta-->
+        <jsp:include page="Cabecera.jsp?active=Servicios" />
+        <div class="container">
             <ul class="list-group">
+            <%
+            DataServicios servicios = (DataServicios)session.getAttribute("serviciosDeP");
+            
+            for(int i=0; i < servicios.getServicios().size(); i++){
+                DataServicio s = servicios.getServicios().get(i);
+                String b64 = "";            
+            %>
+                <li class="list-group-item">
+                    <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
+                        b64 = javax.xml.bind.DatatypeConverter.printBase64Binary((byte[])s.getImagenes().get(0));
+                    %>
+                    <img  src="data:image/jpg;base64, <%=b64%>" class="img-responsive center-block img-rounded" style="width: 50%">
+                    <%}else{%>
+                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
+                    <%}%>
+                    <h2><%= s.getNombre() %></h2>
+                    <p class="text-justify"><%= s.getDescripcion() %></p>
+                </li>
+            <%}%>
+            </ul>
+            <%--<ul class="list-group">
                 <li class="list-group-item">
                     <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
                     <h2>Servicio</h2>
@@ -85,7 +77,7 @@
                         Etiam mauris enim, placerat sit amet pretium at, bibendum at neque. Vivamus id posuere erat. Phasellus a fringilla nibh. Integer ut nibh quis eros ullamcorper fermentum. Curabitur dignissim dolor at leo cursus suscipit. Vestibulum imperdiet porttitor magna. Morbi tristique mattis cursus. Praesent nec nisi et sapien efficitur porttitor et nec felis.
                     </p>
                 </li>
-            </ul>
+            </ul>--%>
         </div>  
             
         <script src="/DispositivoMovil/JS/jQuery.js"></script>

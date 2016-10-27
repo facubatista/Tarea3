@@ -1,9 +1,7 @@
-<%-- 
-    Document   : Prueba
-    Created on : 22/10/2016, 11:34:18 PM
-    Author     : Kevin
---%>
-
+<%@page import="webservices.WSProveedores"%>
+<%@page import="webservices.WSProveedoresService"%>
+<%@page import="webservices.DataPromocion"%>
+<%@page import="webservices.DataPromociones"%>
 <%@page import="webservices.DataServicio"%>
 <%@page import="webservices.DataServicios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,16 +14,18 @@
         <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
     </head>
     <body style="padding-top: 65px">
-        <!--El parametro que pasa en el include es para decirle que pestaña sombrear en el menu, indicando en que pagina se esta-->
-        <jsp:include page="Cabecera.jsp?active=Servicios" />
+        <jsp:include page="Cabecera.jsp?active=Promociones" />
         <div class="container">
             <ul class="list-group">
             <%
-            DataServicios servicios = (DataServicios)session.getAttribute("serviciosDeP");
+            DataPromociones promos = (DataPromociones)session.getAttribute("promosDeP");
             
-            for(int i=0; i < servicios.getServicios().size(); i++){
-                DataServicio s = servicios.getServicios().get(i);
-                String b64 = "";            
+            for(int i=0; i < promos.getPromociones().size(); i++){
+                DataPromocion p = promos.getPromociones().get(i);
+                String b64 = "";
+                
+                WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
+                DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(0));
             %>
                 <li class="list-group-item">
                     <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
@@ -35,7 +35,7 @@
                     <%}else{%>
                     <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
                     <%}%>
-                    <h2><%= s.getNombre() %></h2>
+                    <h2><%= p.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
                 </li>
             <%}%>

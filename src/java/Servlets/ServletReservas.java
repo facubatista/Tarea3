@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import webservices.WSProveedores;
+import webservices.WSProveedoresService;
 
 /**
  *
@@ -35,6 +37,8 @@ public class ServletReservas extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        WSProveedoresService wsps = new WSProveedoresService();
+        WSProveedores wsp = wsps.getWSProveedoresPort();
         HttpSession sesion = request.getSession();
         
         //También se fija que haya iniciado sesion

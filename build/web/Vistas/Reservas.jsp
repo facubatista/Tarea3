@@ -9,42 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
         <title>Reservas</title>
     </head>
     <body style="padding-top: 65px">
-        <%
-        String nomProv = "";
-        if(session.getAttribute("nickProveedor")!=null){
-            nomProv = (String) session.getAttribute("nickProveedor");
-        } 
-        %>
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="#">Bienvenido <%=nomProv%></a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                  <ul class="nav navbar-nav">
-                    <li><a href="/DispositivoMovil/ServletServProm?Servicios=true">Servicios</a></li>
-                    <li><a href="#about">Promociones</a></li>
-                    <li class="active"><a href="/DispositivoMovil/ServletReservas?verReservas=true">Reservas</a></li>
-                    <li>
-                        <a href="/DispositivoMovil/ServletSesion?cerrarSesion=true">
-                            Salir
-                            <img src="/DispositivoMovil/Img/logout.png" alt="imagen logoutusuario" class="img-responsive" style="width:20px;float:left;margin-right: 5px;">
-                        </a>
-                    </li>
-                  </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+        <jsp:include page="Cabecera.jsp?active=Reservas" />
         <div class="container" >
             <h2 class="form-signin-heading text-center">Reservas del proveedor</h2>
             <div class="panel-group">

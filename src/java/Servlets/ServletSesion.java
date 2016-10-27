@@ -53,7 +53,7 @@ public class ServletSesion extends HttpServlet {
             sesion.setAttribute("nomProveedor", wsp.getNombreProveedor(nickname));//Es el nombre para mostrar en la cabecera 
             
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Servicios.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("ServletServProm?Servicios=true");
             dispatcher.forward(request, response);
         }
         
@@ -61,6 +61,8 @@ public class ServletSesion extends HttpServlet {
         if (request.getParameter("cerrarSesion")!= null) {
             sesion.removeAttribute("nickProveedor");
             sesion.removeAttribute("nomProveedor");
+            sesion.removeAttribute("serviciosDeP");
+            sesion.removeAttribute("promosDeP");
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
