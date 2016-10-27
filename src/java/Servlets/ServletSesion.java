@@ -63,6 +63,7 @@ public class ServletSesion extends HttpServlet {
             sesion.removeAttribute("nomProveedor");
             sesion.removeAttribute("serviciosDeP");
             sesion.removeAttribute("promosDeP");
+            sesion.removeAttribute("reservasDeP");
             
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);

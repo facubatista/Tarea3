@@ -10,14 +10,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
         <title>Reservas</title>
+        <link type="image/x-icon" rel="shortcut icon" href="/DispositivoMovil/Img/IconoH4T.ico">
+        <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
     </head>
     <body style="padding-top: 65px">
         <jsp:include page="Cabecera.jsp?active=Reservas" />
         <div class="container" >
             <h2 class="form-signin-heading text-center">Reservas del proveedor</h2>
             <div class="panel-group">
+                
                 <div class="panel panel-primary">
                     <div class="panel-heading clearfix">
                         <h4 class="pull-left">Reserva 1</h4>

@@ -30,7 +30,9 @@ public class ObjectFactory {
     private final static QName _ValidarPasswordProv_QNAME = new QName("http://WebServices/", "validarPasswordProv");
     private final static QName _SeleccionarServicioAListarResponse_QNAME = new QName("http://WebServices/", "seleccionarServicioAListarResponse");
     private final static QName _ListarPromocionesBuscadasResponse_QNAME = new QName("http://WebServices/", "listarPromocionesBuscadasResponse");
+    private final static QName _ListarResDeProvResponse_QNAME = new QName("http://WebServices/", "listarResDeProvResponse");
     private final static QName _GetNombreProveedorResponse_QNAME = new QName("http://WebServices/", "getNombreProveedorResponse");
+    private final static QName _ListarResDeProv_QNAME = new QName("http://WebServices/", "listarResDeProv");
     private final static QName _SeleccionarPromocionAListar_QNAME = new QName("http://WebServices/", "seleccionarPromocionAListar");
     private final static QName _VerificarProveedorResponse_QNAME = new QName("http://WebServices/", "verificarProveedorResponse");
     private final static QName _GetNombreProveedor_QNAME = new QName("http://WebServices/", "getNombreProveedor");
@@ -92,6 +94,22 @@ public class ObjectFactory {
      */
     public ListarPromocionesBuscadasResponse createListarPromocionesBuscadasResponse() {
         return new ListarPromocionesBuscadasResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListarResDeProvResponse }
+     * 
+     */
+    public ListarResDeProvResponse createListarResDeProvResponse() {
+        return new ListarResDeProvResponse();
+    }
+
+    /**
+     * Create an instance of {@link ListarResDeProv }
+     * 
+     */
+    public ListarResDeProv createListarResDeProv() {
+        return new ListarResDeProv();
     }
 
     /**
@@ -183,6 +201,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DataReserva }
+     * 
+     */
+    public DataReserva createDataReserva() {
+        return new DataReserva();
+    }
+
+    /**
+     * Create an instance of {@link DataReservas }
+     * 
+     */
+    public DataReservas createDataReservas() {
+        return new DataReservas();
+    }
+
+    /**
      * Create an instance of {@link DataPromociones }
      * 
      */
@@ -245,12 +279,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarResDeProvResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "listarResDeProvResponse")
+    public JAXBElement<ListarResDeProvResponse> createListarResDeProvResponse(ListarResDeProvResponse value) {
+        return new JAXBElement<ListarResDeProvResponse>(_ListarResDeProvResponse_QNAME, ListarResDeProvResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetNombreProveedorResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://WebServices/", name = "getNombreProveedorResponse")
     public JAXBElement<GetNombreProveedorResponse> createGetNombreProveedorResponse(GetNombreProveedorResponse value) {
         return new JAXBElement<GetNombreProveedorResponse>(_GetNombreProveedorResponse_QNAME, GetNombreProveedorResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ListarResDeProv }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "listarResDeProv")
+    public JAXBElement<ListarResDeProv> createListarResDeProv(ListarResDeProv value) {
+        return new JAXBElement<ListarResDeProv>(_ListarResDeProv_QNAME, ListarResDeProv.class, null, value);
     }
 
     /**

@@ -45,6 +45,21 @@ public interface WSProveedores {
     /**
      * 
      * @param a
+     * @return
+     *     returns webservices.DataServicios
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarServiciosBuscados", targetNamespace = "http://WebServices/", className = "webservices.ListarServiciosBuscados")
+    @ResponseWrapper(localName = "listarServiciosBuscadosResponse", targetNamespace = "http://WebServices/", className = "webservices.ListarServiciosBuscadosResponse")
+    @Action(input = "http://WebServices/WSProveedores/listarServiciosBuscadosRequest", output = "http://WebServices/WSProveedores/listarServiciosBuscadosResponse")
+    public DataServicios listarServiciosBuscados(
+        @WebParam(name = "a", targetNamespace = "")
+        String a);
+
+    /**
+     * 
+     * @param a
      * @param b
      * @return
      *     returns webservices.DataPromocion
@@ -64,14 +79,14 @@ public interface WSProveedores {
      * 
      * @param a
      * @return
-     *     returns webservices.DataServicios
+     *     returns webservices.DataPromociones
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listarServiciosBuscados", targetNamespace = "http://WebServices/", className = "webservices.ListarServiciosBuscados")
-    @ResponseWrapper(localName = "listarServiciosBuscadosResponse", targetNamespace = "http://WebServices/", className = "webservices.ListarServiciosBuscadosResponse")
-    @Action(input = "http://WebServices/WSProveedores/listarServiciosBuscadosRequest", output = "http://WebServices/WSProveedores/listarServiciosBuscadosResponse")
-    public DataServicios listarServiciosBuscados(
+    @RequestWrapper(localName = "listarPromocionesBuscadas", targetNamespace = "http://WebServices/", className = "webservices.ListarPromocionesBuscadas")
+    @ResponseWrapper(localName = "listarPromocionesBuscadasResponse", targetNamespace = "http://WebServices/", className = "webservices.ListarPromocionesBuscadasResponse")
+    @Action(input = "http://WebServices/WSProveedores/listarPromocionesBuscadasRequest", output = "http://WebServices/WSProveedores/listarPromocionesBuscadasResponse")
+    public DataPromociones listarPromocionesBuscadas(
         @WebParam(name = "a", targetNamespace = "")
         String a);
 
@@ -92,21 +107,6 @@ public interface WSProveedores {
 
     /**
      * 
-     * @param a
-     * @return
-     *     returns webservices.DataPromociones
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listarPromocionesBuscadas", targetNamespace = "http://WebServices/", className = "webservices.ListarPromocionesBuscadas")
-    @ResponseWrapper(localName = "listarPromocionesBuscadasResponse", targetNamespace = "http://WebServices/", className = "webservices.ListarPromocionesBuscadasResponse")
-    @Action(input = "http://WebServices/WSProveedores/listarPromocionesBuscadasRequest", output = "http://WebServices/WSProveedores/listarPromocionesBuscadasResponse")
-    public DataPromociones listarPromocionesBuscadas(
-        @WebParam(name = "a", targetNamespace = "")
-        String a);
-
-    /**
-     * 
      * @param arg1
      * @param arg0
      * @return
@@ -122,6 +122,21 @@ public interface WSProveedores {
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns webservices.DataReservas
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listarResDeProv", targetNamespace = "http://WebServices/", className = "webservices.ListarResDeProv")
+    @ResponseWrapper(localName = "listarResDeProvResponse", targetNamespace = "http://WebServices/", className = "webservices.ListarResDeProvResponse")
+    @Action(input = "http://WebServices/WSProveedores/listarResDeProvRequest", output = "http://WebServices/WSProveedores/listarResDeProvResponse")
+    public DataReservas listarResDeProv(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 

@@ -12,7 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JSP Page</title>
+        <title>Servicios</title>
+        <link type="image/x-icon" rel="shortcut icon" href="/DispositivoMovil/Img/IconoH4T.ico">
         <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
     </head>
     <body style="padding-top: 65px">
@@ -22,10 +23,15 @@
             <ul class="list-group">
             <%
             DataServicios servicios = (DataServicios)session.getAttribute("serviciosDeP");
-            
-            for(int i=0; i < servicios.getServicios().size(); i++){
-                DataServicio s = servicios.getServicios().get(i);
-                String b64 = "";            
+            if(servicios.getServicios().size()==0){
+            %>
+            <li class="list-group-item">
+                <h3>No hay servicios disponibles</h3>
+            </li>
+            <%}else{
+                for(int i=0; i < servicios.getServicios().size(); i++){
+                    DataServicio s = servicios.getServicios().get(i);
+                    String b64 = "";            
             %>
                 <li class="list-group-item">
                     <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
@@ -38,7 +44,8 @@
                     <h2><%= s.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
                 </li>
-            <%}%>
+            <%  }
+            }%>
             </ul>
             <%--<ul class="list-group">
                 <li class="list-group-item">

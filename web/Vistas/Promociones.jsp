@@ -10,7 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>JSP Page</title>
+        <title>Promociones</title>
+        <link type="image/x-icon" rel="shortcut icon"  href="/DispositivoMovil/Img/IconoH4T.ico">
         <link rel="stylesheet" href="/DispositivoMovil/Bootstrap/css/bootstrap.min.css">
     </head>
     <body style="padding-top: 65px">
@@ -19,13 +20,18 @@
             <ul class="list-group">
             <%
             DataPromociones promos = (DataPromociones)session.getAttribute("promosDeP");
-            
-            for(int i=0; i < promos.getPromociones().size(); i++){
-                DataPromocion p = promos.getPromociones().get(i);
-                String b64 = "";
-                
-                WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
-                DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(0));
+            if(promos.getPromociones().size()==0){
+            %>
+            <li class="list-group-item">
+                <h3>No hay promociones disponibles</h3>
+            </li>
+            <%}else{
+                for(int i=0; i < promos.getPromociones().size(); i++){
+                    DataPromocion p = promos.getPromociones().get(i);
+                    String b64 = "";
+
+                    WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
+                    DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(0));
             %>
                 <li class="list-group-item">
                     <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
@@ -38,7 +44,8 @@
                     <h2><%= p.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
                 </li>
-            <%}%>
+            <%  }
+            }%>
             </ul>
             <%--<ul class="list-group">
                 <li class="list-group-item">
