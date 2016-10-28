@@ -23,7 +23,7 @@
             if(promos.getPromociones().size()==0){
             %>
             <li class="list-group-item">
-                <h3>No hay promociones disponibles</h3>
+                <h3>No se encontraron promociones</h3>
             </li>
             <%}else{
                 for(int i=0; i < promos.getPromociones().size(); i++){
@@ -43,6 +43,27 @@
                     <%}%>
                     <h2><%= p.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
+                    <ul class="list-group" >
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Descuento: %<%= Math.round(p.getPorcentaje()) %></h3>
+                        </li>
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Total: $<%= Math.round(p.getTotal()) %></h3>
+                        </li>
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            
+                            <ul class="list-group" >
+                                <li class="list-group-item active" style="border-color: #337AB7;">
+                                    <h3>Servicios</h3>
+                                </li>
+                                <%for(int aux=0; aux<p.getServicios().size(); aux++){%>
+                                <li class="list-group-item " style="border-color: #337AB7;">
+                                    <h3><%= p.getServicios().get(aux) %></h3>
+                                </li>
+                                <%}%>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
             <%  }
             }%>

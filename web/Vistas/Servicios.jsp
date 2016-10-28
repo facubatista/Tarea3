@@ -26,7 +26,7 @@
             if(servicios.getServicios().size()==0){
             %>
             <li class="list-group-item">
-                <h3>No hay servicios disponibles</h3>
+                <h3>No se encontraron servicios</h3>
             </li>
             <%}else{
                 for(int i=0; i < servicios.getServicios().size(); i++){
@@ -43,6 +43,23 @@
                     <%}%>
                     <h2><%= s.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
+                    <ul class="list-group" >
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Precio: $<%= Math.round(s.getPrecio()) %></h3>
+                        </li>
+                        <%if(s.getDestino()!=null){%>
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Origen: <%= s.getOrigen() %></h3>
+                        </li>
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Destino: <%= s.getDestino() %></h3>
+                        </li>
+                        <%}else{%>
+                        <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
+                            <h3>Ciudad: <%= s.getOrigen() %></h3>
+                        </li>
+                        <%}%>
+                    </ul>
                 </li>
             <%  }
             }%>

@@ -4,6 +4,8 @@
     Author     : Kevin
 --%>
 
+<%@page import="webservices.DataReserva"%>
+<%@page import="webservices.DataReservas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,12 +19,23 @@
     <body style="padding-top: 65px">
         <jsp:include page="Cabecera.jsp?active=Reservas" />
         <div class="container" >
-            <h2 class="form-signin-heading text-center">Reservas del proveedor</h2>
+            <%
+            DataReservas reservas = (DataReservas)session.getAttribute("reservasDeP"); 
+            %>
             <div class="panel-group">
-                
+                <%            
+                if(reservas!=null && reservas.getReservas().size()==0){
+                %>
+                <li class="list-group-item">
+                    <h3>No se encontraron reservas</h3>
+                </li>
+                <%}else{
+                    for(int i=0; i < reservas.getReservas().size(); i++){
+                        DataReserva r = reservas.getReservas().get(i);            
+                %>
                 <div class="panel panel-primary">
                     <div class="panel-heading clearfix">
-                        <h4 class="pull-left">Reserva 1</h4>
+                        <h4 class="pull-left">Reserva: #<%= r.getNumero() %>, Cliente: <%= r.getCliente() %></h4>
                         <button type="button" class="btn btn-primary pull-right">Facturar</button>
                     </div>
                     <div class="panel-body">
@@ -42,7 +55,9 @@
                         </ul>   
                     </div>
                 </div>
-                <div class="panel panel-primary">
+                <%  }
+                }%>        
+                <%--<div class="panel panel-primary">
                     <div class="panel-heading clearfix">
                         <h4 class="pull-left">Reserva 2</h4>
                         <button class="btn btn-primary pull-right">Facturar</button>
@@ -63,7 +78,7 @@
                             </li>
                         </ul>   
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
         
