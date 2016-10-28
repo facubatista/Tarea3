@@ -23,7 +23,7 @@
             if(promos.getPromociones().size()==0){
             %>
             <li class="list-group-item">
-                <h3>No se encontraron promociones</h3>
+                <h4>No se encontraron promociones</h4>
             </li>
             <%}else{
                 for(int i=0; i < promos.getPromociones().size(); i++){
@@ -37,28 +37,28 @@
                     <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
                         b64 = javax.xml.bind.DatatypeConverter.printBase64Binary((byte[])s.getImagenes().get(0));
                     %>
-                    <img  src="data:image/jpg;base64, <%=b64%>" class="img-responsive center-block img-rounded" style="width: 50%">
+                    <img  src="data:image/jpg;base64, <%=b64%>" class="img-responsive center-block img-rounded" style="width: 100%">
                     <%}else{%>
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
+                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" style="width: 100%">
                     <%}%>
                     <h2><%= p.getNombre() %></h2>
                     <p class="text-justify"><%= s.getDescripcion() %></p>
                     <ul class="list-group" >
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Descuento: %<%= Math.round(p.getPorcentaje()) %></h3>
+                            <h4>Descuento: %<%= Math.round(p.getPorcentaje()) %></h4>
                         </li>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Total: $<%= Math.round(p.getTotal()) %></h3>
+                            <h4>Total: $<%= Math.round(p.getTotal()) %></h4>
                         </li>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
                             
                             <ul class="list-group" >
                                 <li class="list-group-item active" style="border-color: #337AB7;">
-                                    <h3>Servicios</h3>
+                                    <h4>Servicios</h4>
                                 </li>
                                 <%for(int aux=0; aux<p.getServicios().size(); aux++){%>
                                 <li class="list-group-item " style="border-color: #337AB7;">
-                                    <h3><%= p.getServicios().get(aux) %></h3>
+                                    <h4><%= p.getServicios().get(aux) %></h4>
                                 </li>
                                 <%}%>
                             </ul>

@@ -26,7 +26,7 @@
             if(servicios.getServicios().size()==0){
             %>
             <li class="list-group-item">
-                <h3>No se encontraron servicios</h3>
+                <h4>No se encontraron servicios</h4>
             </li>
             <%}else{
                 for(int i=0; i < servicios.getServicios().size(); i++){
@@ -58,12 +58,12 @@
                             <div class="carousel-inner" role="listbox">
                                 <!-- La primera imagen queda fuera del "for" porque es la que se muestra en al principio, tiene la clase "active" -->
                                 <div class="item active">
-                                    <img  src="data:image/jpg;base64, <%=imagenes[0]%>" class="img-responsive center-block img-rounded" style="width: 50%">
+                                    <img  src="data:image/jpg;base64, <%=imagenes[0]%>" class="img-responsive center-block img-rounded" style="width: 100%">
                                 </div>
                             <%if(imagenes.length>1){
                                 for(int aux =1; aux<imagenes.length; aux++){ %>
                                 <div class="item">
-                                    <img  src="data:image/jpg;base64, <%=imagenes[aux]%>" class="img-responsive center-block img-rounded" style="width: 50%">
+                                    <img  src="data:image/jpg;base64, <%=imagenes[aux]%>" class="img-responsive center-block img-rounded" style="width: 100%">
                                 </div>
                             <%  }
                             }%>
@@ -90,10 +90,10 @@
                             <div class="carousel-inner" role="listbox">
                                 <!-- La primera imagen queda fuera del "for" porque es la que se muestra en al principio, tiene la clase "active" -->
                                 <div class="item active">
-                                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" style="width: 50%">
+                                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" style="width: 100%">
                                 </div>
                             </div>
-                            <!-- Left and right controls -->
+                            <!-- Controles, derecha e izquierda -->
                             <a class="left carousel-control" href="#carousel<%= s.getNombre() %>" role="button" data-slide="prev">
                               <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                               <span class="sr-only">Previous</span>
@@ -108,18 +108,18 @@
                     <p class="text-justify"><%= s.getDescripcion() %></p>
                     <ul class="list-group" >
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Precio: $<%= Math.round(s.getPrecio()) %></h3>
+                            <h4>Precio: $<%= Math.round(s.getPrecio()) %></h4>
                         </li>
                         <%if(s.getDestino()!=null){%>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Origen: <%= s.getOrigen() %></h3>
+                            <h4>Origen: <%= s.getOrigen() %></h4>
                         </li>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Destino: <%= s.getDestino() %></h3>
+                            <h4>Destino: <%= s.getDestino() %></h4>
                         </li>
                         <%}else{%>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h3>Ciudad: <%= s.getOrigen() %></h3>
+                            <h4>Ciudad: <%= s.getOrigen() %></h4>
                         </li>
                         <%}%>
                     </ul>
