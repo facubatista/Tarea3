@@ -31,28 +31,46 @@
                 </li>
                 <%}else{
                     for(int i=0; i < reservas.getReservas().size(); i++){
-                        DataReserva r = reservas.getReservas().get(i);            
+                        DataReserva r = reservas.getReservas().get(i);
                 %>
                 <div class="panel panel-primary">
                     <div class="panel-heading clearfix">
-                        <h4 class="pull-left">Reserva: #<%= r.getNumero() %>, Cliente: <%= r.getCliente() %></h4>
+                        <h4 class="pull-left">Reserva #<%= r.getNumero() %></h4>
+                        <%if(r.getEstado().equals("Pagada")){%>
                         <button type="button" class="btn btn-primary pull-right">Facturar</button>
+                        <%}%>
                     </div>
                     <div class="panel-body">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <h5>Servicio</h5>
+                        <ul class="list-group" >
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <h4>Cliente: <%= r.getCliente() %></h4>
                             </li>
-                            <li class="list-group-item">
-                                <h5>Servicio2</h5>
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <h4>Estado: <%= r.getEstado() %></h4>
                             </li>
-                            <li class="list-group-item">
-                                <h5>Servicio3</h5>
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <h4>Fecha de creación: <%= r.getFechaCreacion() %></h4>
                             </li>
-                            <li class="list-group-item">
-                                <h5>Servicio4</h5>
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <h4>Total: $<%= Math.round(r.getPrecioTotal()) %></h4>
                             </li>
-                        </ul>   
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <ul class="list-group" style="color: #337AB7">
+                                    <li class="list-group-item active" style="border-color: #337AB7;">
+                                        <h4>Servicios</h4>
+                                    </li>
+                                    <li class="list-group-item" style="border-color: #337AB7">
+                                        <h4>Servicio1</h4>
+                                    </li>
+                                    <li class="list-group-item" style="border-color: #337AB7;">
+                                        <h4>Servicio2</h4>
+                                    </li>
+                                    <li class="list-group-item" style="border-color: #337AB7;">
+                                        <h4>Servicio3</h4>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <%  }
@@ -65,16 +83,16 @@
                     <div class="panel-body">
                         <ul class="list-group">
                             <li class="list-group-item">
-                                <h5>Servicio</h5>
+                                <h4>Servicio</h4>
                             </li>
                             <li class="list-group-item">
-                                <h5>Servicio2</h5>
+                                <h4>Servicio2</h4>
                             </li>
                             <li class="list-group-item">
-                                <h5>Servicio3</h5>
+                                <h4>Servicio3</h4>
                             </li>
                             <li class="list-group-item">
-                                <h5>Servicio4</h5>
+                                <h4>Servicio4</h4>
                             </li>
                         </ul>   
                     </div>
