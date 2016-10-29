@@ -58,7 +58,8 @@
                                 </li>
                                 <%for(int aux=0; aux<p.getServicios().size(); aux++){%>
                                 <li class="list-group-item " style="border-color: #337AB7;">
-                                    <h4><%= p.getServicios().get(aux) %></h4>
+                                    <%s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(aux));%>
+                                    <h4><%= p.getServicios().get(aux) %>: $<%= Math.round(s.getPrecio()) %></h4>
                                 </li>
                                 <%}%>
                             </ul>

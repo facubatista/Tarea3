@@ -44,6 +44,10 @@ public class ServletReservas extends HttpServlet {
         //También se fija que haya iniciado sesion
         if(request.getParameter("verReservas")!=null && sesion.getAttribute("nickProveedor")!=null){
             sesion.setAttribute("reservasDeP", wsp.listarResDeProv((String)sesion.getAttribute("nickProveedor")));
+            
+            //Se setea el web service del proveedor, es necesario para mostrar informacionde los servicios y las promociones
+            request.setAttribute("webServiceP", wsp);
+            
             RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Reservas.jsp");
             dispatcher.forward(request, response);
         }else{

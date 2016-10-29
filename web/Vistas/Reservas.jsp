@@ -4,6 +4,13 @@
     Author     : Kevin
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="webservices.DtRP"%>
+<%@page import="webservices.DtRS"%>
+<%@page import="webservices.DataRsRp"%>
+<%@page import="webservices.DataPromocion"%>
+<%@page import="webservices.DataServicio"%>
+<%@page import="webservices.WSProveedores"%>
 <%@page import="webservices.DataReserva"%>
 <%@page import="webservices.DataReservas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,6 +39,11 @@
                 <%}else{
                     for(int i=0; i < reservas.getReservas().size(); i++){
                         DataReserva r = reservas.getReservas().get(i);
+
+                        WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
+                        DataRsRp SyP = wsp.traerRsRp( r.getNumero(), r.getCliente());
+                        List<DtRP> promosDeR = SyP.getPromociones();
+                        List<DtRS> serviciosDeR = SyP.getServicios();
                 %>
                 <div class="panel panel-primary">
                     <div class="panel-heading clearfix">
@@ -54,22 +66,44 @@
                             <li class="list-group-item" style="border-color: #337AB7;">
                                 <h4>Total: $<%= Math.round(r.getPrecioTotal()) %></h4>
                             </li>
-                            <li class="list-group-item" style="border-color: #337AB7;">
+                            <% if(serviciosDeR.size()>0){ %>
+                            <li class="list-group-item" style="border-color: #337AB7;">                                
                                 <ul class="list-group" style="color: #337AB7">
                                     <li class="list-group-item active" style="border-color: #337AB7;">
                                         <h4>Servicios</h4>
                                     </li>
+                                    <% for(int aux=0; aux < serviciosDeR.size(); aux++ ){ %>
+                                    <%
+                                        DtRS sr = serviciosDeR.get(aux);
+                                        DataServicio s = wsp.seleccionarServicioAListar( (String)session.getAttribute("nickProveedor") , sr.getServicio());
+                                    %>
                                     <li class="list-group-item" style="border-color: #337AB7">
-                                        <h4>Servicio1</h4>
+                                        <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %></h4>
                                     </li>
-                                    <li class="list-group-item" style="border-color: #337AB7;">
-                                        <h4>Servicio2</h4>
+                                    <%}%>
+                                </ul>                              
+                            </li>
+                            <%}%>  
+                            <% if(promosDeR.size()>0){ %>
+                            <li class="list-group-item" style="border-color: #337AB7;">
+                                <ul class="list-group" style="color: #337AB7">
+                                    <li class="list-group-item active" style="border-color: #337AB7;">
+                                        <h4>Promociones</h4>
                                     </li>
-                                    <li class="list-group-item" style="border-color: #337AB7;">
-                                        <h4>Servicio3</h4>
+                                    <% for(int aux=0; aux< promosDeR.size(); aux++ ){ %>
+                                    <%
+                                    DtRP pr = promosDeR.get(aux);
+                                    DataPromocion p = wsp.seleccionarPromocionAListar( (String)session.getAttribute("nickProveedor") , pr.getPromocion());
+                                    
+                                    %>
+                                    <li class="list-group-item" style="border-color: #337AB7">
+                                        <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %></h4>
                                     </li>
+                                    <%}%>
                                 </ul>
                             </li>
+                            <%}%>
+                            
                         </ul>
                     </div>
                 </div>

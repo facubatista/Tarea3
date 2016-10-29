@@ -25,6 +25,8 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _ValidarPasswordProvResponse_QNAME = new QName("http://WebServices/", "validarPasswordProvResponse");
+    private final static QName _TraerRsRpResponse_QNAME = new QName("http://WebServices/", "traerRsRpResponse");
+    private final static QName _TraerRsRp_QNAME = new QName("http://WebServices/", "traerRsRp");
     private final static QName _ListarServiciosBuscados_QNAME = new QName("http://WebServices/", "listarServiciosBuscados");
     private final static QName _VerificarProveedor_QNAME = new QName("http://WebServices/", "verificarProveedor");
     private final static QName _ValidarPasswordProv_QNAME = new QName("http://WebServices/", "validarPasswordProv");
@@ -54,6 +56,22 @@ public class ObjectFactory {
      */
     public ValidarPasswordProvResponse createValidarPasswordProvResponse() {
         return new ValidarPasswordProvResponse();
+    }
+
+    /**
+     * Create an instance of {@link TraerRsRp }
+     * 
+     */
+    public TraerRsRp createTraerRsRp() {
+        return new TraerRsRp();
+    }
+
+    /**
+     * Create an instance of {@link TraerRsRpResponse }
+     * 
+     */
+    public TraerRsRpResponse createTraerRsRpResponse() {
+        return new TraerRsRpResponse();
     }
 
     /**
@@ -185,6 +203,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DataRsRp }
+     * 
+     */
+    public DataRsRp createDataRsRp() {
+        return new DataRsRp();
+    }
+
+    /**
+     * Create an instance of {@link DataPromociones }
+     * 
+     */
+    public DataPromociones createDataPromociones() {
+        return new DataPromociones();
+    }
+
+    /**
+     * Create an instance of {@link DtRP }
+     * 
+     */
+    public DtRP createDtRP() {
+        return new DtRP();
+    }
+
+    /**
      * Create an instance of {@link DataPromocion }
      * 
      */
@@ -217,11 +259,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link DataPromociones }
+     * Create an instance of {@link DtRS }
      * 
      */
-    public DataPromociones createDataPromociones() {
-        return new DataPromociones();
+    public DtRS createDtRS() {
+        return new DtRS();
     }
 
     /**
@@ -231,6 +273,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://WebServices/", name = "validarPasswordProvResponse")
     public JAXBElement<ValidarPasswordProvResponse> createValidarPasswordProvResponse(ValidarPasswordProvResponse value) {
         return new JAXBElement<ValidarPasswordProvResponse>(_ValidarPasswordProvResponse_QNAME, ValidarPasswordProvResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TraerRsRpResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "traerRsRpResponse")
+    public JAXBElement<TraerRsRpResponse> createTraerRsRpResponse(TraerRsRpResponse value) {
+        return new JAXBElement<TraerRsRpResponse>(_TraerRsRpResponse_QNAME, TraerRsRpResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link TraerRsRp }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "traerRsRp")
+    public JAXBElement<TraerRsRp> createTraerRsRp(TraerRsRp value) {
+        return new JAXBElement<TraerRsRp>(_TraerRsRp_QNAME, TraerRsRp.class, null, value);
     }
 
     /**
