@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="webservices.WSProveedores"%>
 <%@page import="webservices.WSProveedoresService"%>
 <%@page import="webservices.DataPromocion"%>
@@ -31,18 +33,85 @@
                     String b64 = "";
 
                     WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
-                    DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(0));
+                    
             %>
                 <li class="list-group-item">
-                    <%if(s.getImagenes().size()!=0 && s.getImagenes().get(0)!=null){
-                        b64 = javax.xml.bind.DatatypeConverter.printBase64Binary((byte[])s.getImagenes().get(0));
+                    <%
+                    DataServicio primerS = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(0));
+                    List <String> listaImgProm = new ArrayList<>();
+                    for(int aux=0; aux < p.getServicios().size() ; aux++){
+                        DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(aux));
+                        for(int img=0; img<s.getImagenes().size(); img++){
+                            //Se pasa la imagen a Base64 y se agrega a la lista de imagenes
+                            listaImgProm.add(javax.xml.bind.DatatypeConverter.printBase64Binary((byte[])s.getImagenes().get(img)));
+                        }
+                    }
                     %>
-                    <img  src="data:image/jpg;base64, <%=b64%>" class="img-responsive center-block img-rounded" style="width: 100%">
+                    <%if(listaImgProm.size()>0){%>
+                    <div id="carousel<%= p.getNombre() %>" class="carousel slide" data-ride="carousel">
+                            <!-- Indicadores -->
+                            <ol class="carousel-indicators">
+                                <!-- El primero imagen queda fuera del "for" porque indica la imagen a mostrar al principio, tiene la clase "active" -->
+                                <li data-target="#carousel<%= p.getNombre() %>" data-slide-to="0" class="active"></li>
+                                <%if(listaImgProm.size() > 1){
+                                    for(int aux2 =1; aux2<listaImgProm.size(); aux2++){%>
+                                <li data-target="#carousel<%= p.getNombre() %>" data-slide-to="<%= aux2 %>"></li>
+                                <%  }
+                                }%>
+                            </ol>
+
+                            <!-- Contenedor de la imagenes -->
+                            <div class="carousel-inner" role="listbox">
+                                <!-- La primera imagen queda fuera del "for" porque es la que se muestra en al principio, tiene la clase "active" -->
+                                <div class="item active">
+                                    <img  src="data:image/jpg;base64, <%=listaImgProm.get(0)%>" class="img-responsive center-block img-rounded" style="width: 100%">
+                                </div>
+                            <%if(listaImgProm.size()>1){
+                                for(int aux2 =1; aux2<listaImgProm.size(); aux2++){ %>
+                                <div class="item">
+                                    <img  src="data:image/jpg;base64, <%=listaImgProm.get(aux2)%>" class="img-responsive center-block img-rounded" style="width: 100%">
+                                </div>
+                            <%  }
+                            }%>
+                            </div>
+
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#carousel<%= p.getNombre() %>" role="button" data-slide="prev">
+                              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel<%= p.getNombre() %>" role="button" data-slide="next">
+                              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    
                     <%}else{%>
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" style="width: 100%">
+                    <div id="carousel<%= p.getNombre() %>" class="carousel slide" data-ride="carousel">
+                            <!-- Indicadores -->
+                            <ol class="carousel-indicators">
+                                <!-- El primero imagen queda fuera del "for" porque indica la imagen a mostrar al principio, tiene la clase "active" -->
+                                <li data-target="#carousel<%= p.getNombre() %>" data-slide-to="0" class="active"></li>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                <!-- La primera imagen queda fuera del "for" porque es la que se muestra en al principio, tiene la clase "active" -->
+                                <div class="item active">
+                                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" style="width: 100%">
+                                </div>
+                            </div>
+                            <!-- Controles, derecha e izquierda -->
+                            <a class="left carousel-control" href="#carousel<%= p.getNombre() %>" role="button" data-slide="prev">
+                              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel<%= p.getNombre() %>" role="button" data-slide="next">
+                              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                              <span class="sr-only">Next</span>
+                            </a>
+                    </div>                    
                     <%}%>
                     <h2><%= p.getNombre() %></h2>
-                    <p class="text-justify"><%= s.getDescripcion() %></p>
+                    <p class="text-justify"><%= primerS.getDescripcion() %></p>
                     <ul class="list-group" >
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
                             <h4>Descuento: %<%= Math.round(p.getPorcentaje()) %></h4>
@@ -56,57 +125,19 @@
                                 <li class="list-group-item active" style="border-color: #337AB7;">
                                     <h4>Servicios</h4>
                                 </li>
-                                <%for(int aux=0; aux<p.getServicios().size(); aux++){%>
+                                <%for(int aux2=0; aux2<p.getServicios().size(); aux2++){%>
                                 <li class="list-group-item " style="border-color: #337AB7;">
-                                    <%s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(aux));%>
-                                    <h4><%= p.getServicios().get(aux) %>: $<%= Math.round(s.getPrecio()) %></h4>
+                                    <%DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(aux2));%>
+                                    <h4><%= p.getServicios().get(aux2) %>: $<%= Math.round(s.getPrecio()) %></h4>
                                 </li>
                                 <%}%>
                             </ul>
                         </li>
                     </ul>
                 </li>
-            <%  }
+                <%}
             }%>
             </ul>
-            <%--<ul class="list-group">
-                <li class="list-group-item">
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
-                    <h2>Servicio</h2>
-                    <p class="text-justify">     
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dui sed lacus congue aliquet. Praesent ut vulputate ipsum. Etiam vel metus congue, dapibus neque quis, aliquet nisl. Nulla facilisi. Pellentesque sem ipsum, porta ut accumsan eget, laoreet vel purus. Mauris non tempor diam, nec dictum nisl. Nam luctus sapien quis massa ultricies consectetur ac vitae ante. Suspendisse vel metus urna. Cras a vulputate est. Fusce ac augue non odio finibus semper nec eu elit. Proin vitae justo luctus, faucibus lorem ut, ullamcorper enim. Suspendisse at massa quis risus malesuada aliquet. Quisque aliquet nec est a faucibus. Nam non lorem ut nulla rhoncus vehicula.
-                        Morbi ut mattis tellus. Fusce porta faucibus sagittis. Praesent lacinia elit luctus ornare semper. Aenean eu nunc laoreet, tristique enim pulvinar, efficitur nulla. Aenean mollis, augue nec fringilla elementum, felis arcu consectetur turpis, a ultricies lacus arcu in arcu. Maecenas rhoncus pharetra laoreet. Integer purus odio, feugiat vitae aliquam eu, elementum vel tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque libero lorem, volutpat et bibendum in, elementum eu mi. Donec quam sem, dapibus at facilisis quis, tempor quis libero. Sed maximus at arcu eget malesuada. Maecenas in leo sed arcu placerat fringilla ut vitae sem. Cras ac mauris condimentum felis aliquam finibus. Nunc ac lorem a nisi placerat aliquam id nec dui. Integer porttitor, lorem nec fermentum malesuada, tortor libero faucibus metus, maximus scelerisque nisi purus eget nunc.
-                        Etiam mauris enim, placerat sit amet pretium at, bibendum at neque. Vivamus id posuere erat. Phasellus a fringilla nibh. Integer ut nibh quis eros ullamcorper fermentum. Curabitur dignissim dolor at leo cursus suscipit. Vestibulum imperdiet porttitor magna. Morbi tristique mattis cursus. Praesent nec nisi et sapien efficitur porttitor et nec felis.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
-                    <h2>Servicio2</h2>
-                    <p class="text-justify">     
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dui sed lacus congue aliquet. Praesent ut vulputate ipsum. Etiam vel metus congue, dapibus neque quis, aliquet nisl. Nulla facilisi. Pellentesque sem ipsum, porta ut accumsan eget, laoreet vel purus. Mauris non tempor diam, nec dictum nisl. Nam luctus sapien quis massa ultricies consectetur ac vitae ante. Suspendisse vel metus urna. Cras a vulputate est. Fusce ac augue non odio finibus semper nec eu elit. Proin vitae justo luctus, faucibus lorem ut, ullamcorper enim. Suspendisse at massa quis risus malesuada aliquet. Quisque aliquet nec est a faucibus. Nam non lorem ut nulla rhoncus vehicula.
-                        Morbi ut mattis tellus. Fusce porta faucibus sagittis. Praesent lacinia elit luctus ornare semper. Aenean eu nunc laoreet, tristique enim pulvinar, efficitur nulla. Aenean mollis, augue nec fringilla elementum, felis arcu consectetur turpis, a ultricies lacus arcu in arcu. Maecenas rhoncus pharetra laoreet. Integer purus odio, feugiat vitae aliquam eu, elementum vel tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque libero lorem, volutpat et bibendum in, elementum eu mi. Donec quam sem, dapibus at facilisis quis, tempor quis libero. Sed maximus at arcu eget malesuada. Maecenas in leo sed arcu placerat fringilla ut vitae sem. Cras ac mauris condimentum felis aliquam finibus. Nunc ac lorem a nisi placerat aliquam id nec dui. Integer porttitor, lorem nec fermentum malesuada, tortor libero faucibus metus, maximus scelerisque nisi purus eget nunc.
-                        Etiam mauris enim, placerat sit amet pretium at, bibendum at neque. Vivamus id posuere erat. Phasellus a fringilla nibh. Integer ut nibh quis eros ullamcorper fermentum. Curabitur dignissim dolor at leo cursus suscipit. Vestibulum imperdiet porttitor magna. Morbi tristique mattis cursus. Praesent nec nisi et sapien efficitur porttitor et nec felis.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded">
-                    <h2>Servicio3</h2>
-                    <p class="text-justify">     
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dui sed lacus congue aliquet. Praesent ut vulputate ipsum. Etiam vel metus congue, dapibus neque quis, aliquet nisl. Nulla facilisi. Pellentesque sem ipsum, porta ut accumsan eget, laoreet vel purus. Mauris non tempor diam, nec dictum nisl. Nam luctus sapien quis massa ultricies consectetur ac vitae ante. Suspendisse vel metus urna. Cras a vulputate est. Fusce ac augue non odio finibus semper nec eu elit. Proin vitae justo luctus, faucibus lorem ut, ullamcorper enim. Suspendisse at massa quis risus malesuada aliquet. Quisque aliquet nec est a faucibus. Nam non lorem ut nulla rhoncus vehicula.
-                        Morbi ut mattis tellus. Fusce porta faucibus sagittis. Praesent lacinia elit luctus ornare semper. Aenean eu nunc laoreet, tristique enim pulvinar, efficitur nulla. Aenean mollis, augue nec fringilla elementum, felis arcu consectetur turpis, a ultricies lacus arcu in arcu. Maecenas rhoncus pharetra laoreet. Integer purus odio, feugiat vitae aliquam eu, elementum vel tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque libero lorem, volutpat et bibendum in, elementum eu mi. Donec quam sem, dapibus at facilisis quis, tempor quis libero. Sed maximus at arcu eget malesuada. Maecenas in leo sed arcu placerat fringilla ut vitae sem. Cras ac mauris condimentum felis aliquam finibus. Nunc ac lorem a nisi placerat aliquam id nec dui. Integer porttitor, lorem nec fermentum malesuada, tortor libero faucibus metus, maximus scelerisque nisi purus eget nunc.
-                        Etiam mauris enim, placerat sit amet pretium at, bibendum at neque. Vivamus id posuere erat. Phasellus a fringilla nibh. Integer ut nibh quis eros ullamcorper fermentum. Curabitur dignissim dolor at leo cursus suscipit. Vestibulum imperdiet porttitor magna. Morbi tristique mattis cursus. Praesent nec nisi et sapien efficitur porttitor et nec felis.
-                    </p>
-                </li>
-                <li class="list-group-item">
-                    <img src="/DispositivoMovil/Img/SinImagen.jpg" class="img-responsive center-block img-rounded" >
-                    <h2>Servicio4</h2>
-                    <p class="text-justify">     
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dui sed lacus congue aliquet. Praesent ut vulputate ipsum. Etiam vel metus congue, dapibus neque quis, aliquet nisl. Nulla facilisi. Pellentesque sem ipsum, porta ut accumsan eget, laoreet vel purus. Mauris non tempor diam, nec dictum nisl. Nam luctus sapien quis massa ultricies consectetur ac vitae ante. Suspendisse vel metus urna. Cras a vulputate est. Fusce ac augue non odio finibus semper nec eu elit. Proin vitae justo luctus, faucibus lorem ut, ullamcorper enim. Suspendisse at massa quis risus malesuada aliquet. Quisque aliquet nec est a faucibus. Nam non lorem ut nulla rhoncus vehicula.
-                        Morbi ut mattis tellus. Fusce porta faucibus sagittis. Praesent lacinia elit luctus ornare semper. Aenean eu nunc laoreet, tristique enim pulvinar, efficitur nulla. Aenean mollis, augue nec fringilla elementum, felis arcu consectetur turpis, a ultricies lacus arcu in arcu. Maecenas rhoncus pharetra laoreet. Integer purus odio, feugiat vitae aliquam eu, elementum vel tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque libero lorem, volutpat et bibendum in, elementum eu mi. Donec quam sem, dapibus at facilisis quis, tempor quis libero. Sed maximus at arcu eget malesuada. Maecenas in leo sed arcu placerat fringilla ut vitae sem. Cras ac mauris condimentum felis aliquam finibus. Nunc ac lorem a nisi placerat aliquam id nec dui. Integer porttitor, lorem nec fermentum malesuada, tortor libero faucibus metus, maximus scelerisque nisi purus eget nunc.
-                        Etiam mauris enim, placerat sit amet pretium at, bibendum at neque. Vivamus id posuere erat. Phasellus a fringilla nibh. Integer ut nibh quis eros ullamcorper fermentum. Curabitur dignissim dolor at leo cursus suscipit. Vestibulum imperdiet porttitor magna. Morbi tristique mattis cursus. Praesent nec nisi et sapien efficitur porttitor et nec felis.
-                    </p>
-                </li>
-            </ul>--%>
         </div>  
             
         <script src="/DispositivoMovil/JS/jQuery.js"></script>

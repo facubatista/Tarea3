@@ -29,7 +29,7 @@ function verificarProveedor(claveIngresada){
 
 function iniciarSesion(form){
     var password = form.querySelector("input[id=password]").value;
-    //password = sha1(password);
+    password = sha1(password);
     var nickname = form.querySelector("input[id=claveProveedor]").value;
     var request = new XMLHttpRequest();
     request.open("POST","ServletSesion",true );

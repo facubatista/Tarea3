@@ -55,6 +55,7 @@
         
         <script src="JS/jQuery.js"></script>
         <script src="Bootstrap/js/bootstrap.min.js"></script>
+        <script src="JS/sha1.js"></script>
         <script src="JS/Sesion.js"></script>
     </body>
 </html>

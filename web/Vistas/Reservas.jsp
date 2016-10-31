@@ -34,7 +34,7 @@
                 if(reservas!=null && reservas.getReservas().size()==0){
                 %>
                 <li class="list-group-item">
-                    <h3>No se encontraron reservas</h3>
+                    <h4>No se encontraron reservas</h4>
                 </li>
                 <%}else{
                     for(int i=0; i < reservas.getReservas().size(); i++){
@@ -78,7 +78,7 @@
                                         DataServicio s = wsp.seleccionarServicioAListar( (String)session.getAttribute("nickProveedor") , sr.getServicio());
                                     %>
                                     <li class="list-group-item" style="border-color: #337AB7">
-                                        <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %></h4>
+                                        <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %> x <%= sr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
                                 </ul>                              
@@ -97,7 +97,7 @@
                                     
                                     %>
                                     <li class="list-group-item" style="border-color: #337AB7">
-                                        <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %></h4>
+                                        <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %> x <%= pr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
                                 </ul>
