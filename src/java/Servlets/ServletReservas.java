@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,6 +42,16 @@ public class ServletReservas extends HttpServlet {
         WSProveedores wsp = wsps.getWSProveedoresPort();
         HttpSession sesion = request.getSession();
         
+        if(sesion.getAttribute("nickProveedor")==null){
+            Cookie[] cookies = request.getCookies();
+            for(Cookie c: cookies){
+                if(c.getName().equals("nickProveedor")){
+                    request.getRequestDispatcher("ServletSesion?claveProveedor="+c.getValue()).forward(request, response);
+                    //sesion.setAttribute("nickProveedor", c.getValue());
+                }
+            }
+        }
+        
         //También se fija que haya iniciado sesion
         if(request.getParameter("verReservas")!=null && sesion.getAttribute("nickProveedor")!=null){
             sesion.setAttribute("reservasDeP", wsp.listarResDeProv((String)sesion.getAttribute("nickProveedor")));
@@ -51,8 +62,10 @@ public class ServletReservas extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Reservas.jsp");
             dispatcher.forward(request, response);
         }else{
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("Vistas/IniciarSesion.jsp");
+            /*
+            RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/IniciarSesion.jsp");
+            dispatcher.forward(request, response);*/
         }
     }
 

@@ -7,6 +7,9 @@
 <%@page import="webservices.DataServicio"%>
 <%@page import="webservices.DataServicios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%if(session.getAttribute("nickProveedor")==null){//Si no se inicio sesion, redirecciona a al servlet para verificar cookie de sesion
+    response.sendRedirect("../ServletSesion?index");
+}else{%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -133,3 +136,4 @@
         <script src="/DispositivoMovil/Bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
+<%}%>

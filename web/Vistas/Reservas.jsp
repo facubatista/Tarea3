@@ -1,9 +1,6 @@
-<%-- 
-    Document   : Reservas
-    Created on : 25/10/2016, 02:00:41 PM
-    Author     : Kevin
---%>
-
+<%if(session.getAttribute("nickProveedor")==null){//Si no se inicio sesion, redirecciona a al servlet para verificar cookie de sesion
+    response.sendRedirect("../ServletSesion?index");
+}else{%>
 <%@page import="java.util.List"%>
 <%@page import="webservices.DtRP"%>
 <%@page import="webservices.DtRS"%>
@@ -13,8 +10,8 @@
 <%@page import="webservices.WSProveedores"%>
 <%@page import="webservices.DataReserva"%>
 <%@page import="webservices.DataReservas"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%><!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -69,8 +66,8 @@
                             <% if(serviciosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">                                
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
-                                        role="button" style="border-color: #337AB7">
+                                    <li class="list-group-item botonVer" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
+                                        role="button" style="border-color: #337AB7;">
                                         <h4>Ver Servicios</h4>
                                     </li>
                                     <% for(int aux=0; aux < serviciosDeR.size(); aux++ ){ %>
@@ -88,7 +85,7 @@
                             <% if(promosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement,'Promociones')" 
+                                    <li class="list-group-item botonVer" onclick="mostrarOcultar(this.parentElement,'Promociones')" 
                                         role="button" style="border-color: #337AB7;">
                                         <h4>Ver Promociones</h4>
                                     </li>
@@ -141,3 +138,4 @@
         <script src="/DispositivoMovil/JS/javascript.js"></script>
     </body>
 </html>
+<%}%>

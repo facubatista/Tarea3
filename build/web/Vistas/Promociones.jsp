@@ -1,3 +1,6 @@
+<%if(session.getAttribute("nickProveedor")==null){//Si no se inicio sesion, redirecciona a al servlet para verificar cookie de sesion
+    response.sendRedirect("../ServletSesion?index");
+}else{%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="webservices.WSProveedores"%>
@@ -8,6 +11,7 @@
 <%@page import="webservices.DataServicios"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -114,7 +118,7 @@
                     <p class="text-justify"><%= primerS.getDescripcion() %></p>
                     <ul class="list-group" >
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
-                            <h4>Descuento: %<%= Math.round(p.getPorcentaje()) %></h4>
+                            <h4>Descuento: <%= Math.round(p.getPorcentaje()) %>%</h4>
                         </li>
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
                             <h4>Total: $<%= Math.round(p.getTotal()) %></h4>
@@ -122,7 +126,7 @@
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
                             
                             <ul class="list-group" >
-                                <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
+                                <li class="list-group-item botonVer" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
                                     role="button" style="border-color: #337AB7;">
                                     <h4>Ver Servicios</h4>
                                 </li>
@@ -146,3 +150,4 @@
         <script src="/DispositivoMovil/JS/javascript.js"></script>
     </body>
 </html>
+<%}%>
