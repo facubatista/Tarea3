@@ -69,15 +69,16 @@
                             <% if(serviciosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">                                
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" style="border-color: #337AB7;">
-                                        <h4>Servicios</h4>
+                                    <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
+                                        role="button" style="border-color: #337AB7">
+                                        <h4>Ver Servicios</h4>
                                     </li>
                                     <% for(int aux=0; aux < serviciosDeR.size(); aux++ ){ %>
                                     <%
                                         DtRS sr = serviciosDeR.get(aux);
                                         DataServicio s = wsp.seleccionarServicioAListar( (String)session.getAttribute("nickProveedor") , sr.getServicio());
                                     %>
-                                    <li class="list-group-item" style="border-color: #337AB7">
+                                    <li class="list-group-item servOculto" style="border-color: #337AB7; display:none">
                                         <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %> x <%= sr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
@@ -87,8 +88,9 @@
                             <% if(promosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" style="border-color: #337AB7;">
-                                        <h4>Promociones</h4>
+                                    <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement,'Promociones')" 
+                                        role="button" style="border-color: #337AB7;">
+                                        <h4>Ver Promociones</h4>
                                     </li>
                                     <% for(int aux=0; aux< promosDeR.size(); aux++ ){ %>
                                     <%
@@ -96,7 +98,7 @@
                                     DataPromocion p = wsp.seleccionarPromocionAListar( (String)session.getAttribute("nickProveedor") , pr.getPromocion());
                                     
                                     %>
-                                    <li class="list-group-item" style="border-color: #337AB7">
+                                    <li class="list-group-item promoOculta" style="border-color: #337AB7;display:none">
                                         <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %> x <%= pr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
@@ -136,5 +138,6 @@
         
         <script src="/DispositivoMovil/JS/jQuery.js"></script>
         <script src="/DispositivoMovil/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="/DispositivoMovil/JS/javascript.js"></script>
     </body>
 </html>

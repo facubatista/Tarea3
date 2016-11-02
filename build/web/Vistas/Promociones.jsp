@@ -122,11 +122,12 @@
                         <li class="list-group-item" style="border-color: #337AB7; color:#337AB7">
                             
                             <ul class="list-group" >
-                                <li class="list-group-item active" style="border-color: #337AB7;">
-                                    <h4>Servicios</h4>
+                                <li class="list-group-item active" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
+                                    role="button" style="border-color: #337AB7;">
+                                    <h4>Ver Servicios</h4>
                                 </li>
                                 <%for(int aux2=0; aux2<p.getServicios().size(); aux2++){%>
-                                <li class="list-group-item " style="border-color: #337AB7;">
+                                <li class="list-group-item servOculto" style="border-color: #337AB7;display:none">
                                     <%DataServicio s = wsp.seleccionarServicioAListar(p.getProveedor(), p.getServicios().get(aux2));%>
                                     <h4><%= p.getServicios().get(aux2) %>: $<%= Math.round(s.getPrecio()) %></h4>
                                 </li>
@@ -142,5 +143,6 @@
             
         <script src="/DispositivoMovil/JS/jQuery.js"></script>
         <script src="/DispositivoMovil/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="/DispositivoMovil/JS/javascript.js"></script>
     </body>
 </html>
