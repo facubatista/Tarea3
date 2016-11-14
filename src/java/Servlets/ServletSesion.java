@@ -7,10 +7,10 @@ package Servlets;
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,18 +41,46 @@ public class ServletSesion extends HttpServlet {
         WSProveedoresService wsps = new WSProveedoresService();
         WSProveedores wsp = wsps.getWSProveedoresPort();
         
-        HttpSession sesion = request.getSession();        
+        HttpSession sesion = request.getSession();     
+        
+        String claveProveedor = request.getParameter("claveProveedor");
+        
+        //Buscar si se guardó cookie del nickname
+        String nickCookie = null;
+        Cookie[] cookies = request.getCookies();
+        
+        for(Cookie c: cookies){
+            if(c.getName().equals("nickProveedor")){
+                nickCookie = c.getValue();
+                claveProveedor = nickCookie;//Si se encuentra la cookie, inicia sesion con ese nickname
+            }
+        }
+        ////
+        
+        //Es para la primer pagina, index, redirecciona a aca para buscar si existe la cookie, si no existe redirecciona a la página de inicio de sesion
+        if(request.getParameter("index")!=null && nickCookie==null){
+            if(sesion.getAttribute("nickProveedor") == null){
+                response.sendRedirect("Vistas/IniciarSesion.jsp");
+            }
+        }
         
         //Iniciar Sesión
-        String claveProveedor = request.getParameter("claveProveedor");//el claveProveedor que viene en el param puede ser el nickname o el email del cliente
+        //el claveProveedor que viene en el param puede ser el email del cliente o el nickname(tambien es nickname si se encotró la cookie)
         if (sesion.getAttribute("nickProveedor") == null && claveProveedor != null) {
             String nickname = wsp.verificarProveedor(claveProveedor);//Retorna el nickname
             sesion.setAttribute("nickProveedor", nickname);
 
+            //Si marcó el checkbox "Recordarme"
+            if(request.getParameter("recordarme")!= null){
+                //Se setea la cookie con el nickname, es para recordarlo
+                Cookie c = new Cookie("nickProveedor", nickname);
+                c.setMaxAge(60*60*24);//Tiempo de vida en segundos
+                response.addCookie(c);//Se agrega al response para enviarselo al browser(cliente)
+            }
+            
             //Se setea el nombre de usuario en la sesion
             sesion.setAttribute("nomProveedor", wsp.getNombreProveedor(nickname));//Es el nombre para mostrar en la cabecera 
-            
-            
+                        
             RequestDispatcher dispatcher = request.getRequestDispatcher("ServletServProm?Servicios=true");
             dispatcher.forward(request, response);
         }
@@ -64,9 +92,17 @@ public class ServletSesion extends HttpServlet {
             sesion.removeAttribute("serviciosDeP");
             sesion.removeAttribute("promosDeP");
             sesion.removeAttribute("reservasDeP");
+           
+            //Borrar cookie
+            cookies = request.getCookies();
+            for(Cookie c: cookies){
+                if(c.getName().equals("nickProveedor")){
+                    c.setMaxAge(0);//Tiempo de vida 0, se elimina
+                    response.addCookie(c);
+                }
+            }
             
-            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("Vistas/IniciarSesion.jsp");
         }
         
         //Verificar que el nickname sea valido

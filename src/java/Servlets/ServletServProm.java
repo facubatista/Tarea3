@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +45,16 @@ public class ServletServProm extends HttpServlet {
         
         HttpSession sesion = request.getSession();
         
+        if(sesion.getAttribute("nickProveedor")==null){
+            Cookie[] cookies = request.getCookies();
+            for(Cookie c: cookies){
+                if(c.getName().equals("nickProveedor")){
+                    request.getRequestDispatcher("ServletSesion?claveProveedor="+c.getValue()).forward(request, response);
+                    //sesion.setAttribute("nickProveedor", c.getValue());
+                }
+            }
+        }
+        
         //También se fija que haya iniciado sesion
         if(request.getParameter("Servicios")!=null && sesion.getAttribute("nickProveedor")!=null){
             DataServicios serviciosP = wsp.listarServiciosBuscados((String)sesion.getAttribute("nickProveedor"));
@@ -63,8 +74,7 @@ public class ServletServProm extends HttpServlet {
             RequestDispatcher dispatcher = request.getRequestDispatcher("Vistas/Promociones.jsp");
             dispatcher.forward(request, response);
             }else{
-                RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                dispatcher.forward(request, response);
+                response.sendRedirect("Vistas/IniciarSesion.jsp");
             }
         }
     }

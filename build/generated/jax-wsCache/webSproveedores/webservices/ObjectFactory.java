@@ -26,13 +26,17 @@ public class ObjectFactory {
 
     private final static QName _ValidarPasswordProvResponse_QNAME = new QName("http://WebServices/", "validarPasswordProvResponse");
     private final static QName _TraerRsRpResponse_QNAME = new QName("http://WebServices/", "traerRsRpResponse");
+    private final static QName _FacturadoResponse_QNAME = new QName("http://WebServices/", "facturadoResponse");
     private final static QName _TraerRsRp_QNAME = new QName("http://WebServices/", "traerRsRp");
+    private final static QName _Facturar_QNAME = new QName("http://WebServices/", "facturar");
     private final static QName _ListarServiciosBuscados_QNAME = new QName("http://WebServices/", "listarServiciosBuscados");
     private final static QName _VerificarProveedor_QNAME = new QName("http://WebServices/", "verificarProveedor");
     private final static QName _ValidarPasswordProv_QNAME = new QName("http://WebServices/", "validarPasswordProv");
     private final static QName _SeleccionarServicioAListarResponse_QNAME = new QName("http://WebServices/", "seleccionarServicioAListarResponse");
     private final static QName _ListarPromocionesBuscadasResponse_QNAME = new QName("http://WebServices/", "listarPromocionesBuscadasResponse");
+    private final static QName _Facturado_QNAME = new QName("http://WebServices/", "facturado");
     private final static QName _ListarResDeProvResponse_QNAME = new QName("http://WebServices/", "listarResDeProvResponse");
+    private final static QName _FacturarResponse_QNAME = new QName("http://WebServices/", "facturarResponse");
     private final static QName _GetNombreProveedorResponse_QNAME = new QName("http://WebServices/", "getNombreProveedorResponse");
     private final static QName _ListarResDeProv_QNAME = new QName("http://WebServices/", "listarResDeProv");
     private final static QName _SeleccionarPromocionAListar_QNAME = new QName("http://WebServices/", "seleccionarPromocionAListar");
@@ -59,6 +63,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link FacturadoResponse }
+     * 
+     */
+    public FacturadoResponse createFacturadoResponse() {
+        return new FacturadoResponse();
+    }
+
+    /**
      * Create an instance of {@link TraerRsRp }
      * 
      */
@@ -72,6 +84,14 @@ public class ObjectFactory {
      */
     public TraerRsRpResponse createTraerRsRpResponse() {
         return new TraerRsRpResponse();
+    }
+
+    /**
+     * Create an instance of {@link Facturar }
+     * 
+     */
+    public Facturar createFacturar() {
+        return new Facturar();
     }
 
     /**
@@ -115,6 +135,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Facturado }
+     * 
+     */
+    public Facturado createFacturado() {
+        return new Facturado();
+    }
+
+    /**
      * Create an instance of {@link ListarResDeProvResponse }
      * 
      */
@@ -136,6 +164,14 @@ public class ObjectFactory {
      */
     public SeleccionarPromocionAListar createSeleccionarPromocionAListar() {
         return new SeleccionarPromocionAListar();
+    }
+
+    /**
+     * Create an instance of {@link FacturarResponse }
+     * 
+     */
+    public FacturarResponse createFacturarResponse() {
+        return new FacturarResponse();
     }
 
     /**
@@ -195,11 +231,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link DtPromocion }
+     * 
+     */
+    public DtPromocion createDtPromocion() {
+        return new DtPromocion();
+    }
+
+    /**
      * Create an instance of {@link DataServicios }
      * 
      */
     public DataServicios createDataServicios() {
         return new DataServicios();
+    }
+
+    /**
+     * Create an instance of {@link DtServicio }
+     * 
+     */
+    public DtServicio createDtServicio() {
+        return new DtServicio();
     }
 
     /**
@@ -285,12 +337,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FacturadoResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "facturadoResponse")
+    public JAXBElement<FacturadoResponse> createFacturadoResponse(FacturadoResponse value) {
+        return new JAXBElement<FacturadoResponse>(_FacturadoResponse_QNAME, FacturadoResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link TraerRsRp }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://WebServices/", name = "traerRsRp")
     public JAXBElement<TraerRsRp> createTraerRsRp(TraerRsRp value) {
         return new JAXBElement<TraerRsRp>(_TraerRsRp_QNAME, TraerRsRp.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Facturar }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "facturar")
+    public JAXBElement<Facturar> createFacturar(Facturar value) {
+        return new JAXBElement<Facturar>(_Facturar_QNAME, Facturar.class, null, value);
     }
 
     /**
@@ -339,12 +409,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Facturado }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "facturado")
+    public JAXBElement<Facturado> createFacturado(Facturado value) {
+        return new JAXBElement<Facturado>(_Facturado_QNAME, Facturado.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link ListarResDeProvResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://WebServices/", name = "listarResDeProvResponse")
     public JAXBElement<ListarResDeProvResponse> createListarResDeProvResponse(ListarResDeProvResponse value) {
         return new JAXBElement<ListarResDeProvResponse>(_ListarResDeProvResponse_QNAME, ListarResDeProvResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link FacturarResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "facturarResponse")
+    public JAXBElement<FacturarResponse> createFacturarResponse(FacturarResponse value) {
+        return new JAXBElement<FacturarResponse>(_FacturarResponse_QNAME, FacturarResponse.class, null, value);
     }
 
     /**

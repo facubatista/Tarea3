@@ -23,6 +23,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="cantidad" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="servicio" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="proveedor" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="serv" type="{http://WebServices/}dtServicio" minOccurs="0"/>
+ *         &lt;element name="dataServ" type="{http://WebServices/}dataServicio" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,7 +39,9 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "fechaFin",
     "cantidad",
     "servicio",
-    "proveedor"
+    "proveedor",
+    "serv",
+    "dataServ"
 })
 public class DtRS {
 
@@ -48,6 +52,8 @@ public class DtRS {
     protected int cantidad;
     protected String servicio;
     protected String proveedor;
+    protected DtServicio serv;
+    protected DataServicio dataServ;
 
     /**
      * Obtiene el valor de la propiedad fechaIni.
@@ -159,6 +165,54 @@ public class DtRS {
      */
     public void setProveedor(String value) {
         this.proveedor = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad serv.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DtServicio }
+     *     
+     */
+    public DtServicio getServ() {
+        return serv;
+    }
+
+    /**
+     * Define el valor de la propiedad serv.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DtServicio }
+     *     
+     */
+    public void setServ(DtServicio value) {
+        this.serv = value;
+    }
+
+    /**
+     * Obtiene el valor de la propiedad dataServ.
+     * 
+     * @return
+     *     possible object is
+     *     {@link DataServicio }
+     *     
+     */
+    public DataServicio getDataServ() {
+        return dataServ;
+    }
+
+    /**
+     * Define el valor de la propiedad dataServ.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link DataServicio }
+     *     
+     */
+    public void setDataServ(DataServicio value) {
+        this.dataServ = value;
     }
 
 }

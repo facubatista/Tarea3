@@ -125,6 +125,45 @@ public interface WSProveedores {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     */
+    @WebMethod
+    @RequestWrapper(localName = "facturar", targetNamespace = "http://WebServices/", className = "webservices.Facturar")
+    @ResponseWrapper(localName = "facturarResponse", targetNamespace = "http://WebServices/", className = "webservices.FacturarResponse")
+    @Action(input = "http://WebServices/WSProveedores/facturarRequest", output = "http://WebServices/WSProveedores/facturarResponse")
+    public void facturar(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Integer arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "facturado", targetNamespace = "http://WebServices/", className = "webservices.Facturado")
+    @ResponseWrapper(localName = "facturadoResponse", targetNamespace = "http://WebServices/", className = "webservices.FacturadoResponse")
+    @Action(input = "http://WebServices/WSProveedores/facturadoRequest", output = "http://WebServices/WSProveedores/facturadoResponse")
+    public boolean facturado(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Integer arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
      * @param arg0
      * @return
      *     returns java.lang.String

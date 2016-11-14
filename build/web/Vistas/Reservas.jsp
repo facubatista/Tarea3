@@ -1,9 +1,6 @@
-<%-- 
-    Document   : Reservas
-    Created on : 25/10/2016, 02:00:41 PM
-    Author     : Kevin
---%>
-
+<%if(session.getAttribute("nickProveedor")==null){//Si no se inicio sesion, redirecciona a al servlet para verificar cookie de sesion
+    response.sendRedirect("../ServletSesion?index");
+}else{%>
 <%@page import="java.util.List"%>
 <%@page import="webservices.DtRP"%>
 <%@page import="webservices.DtRS"%>
@@ -13,8 +10,8 @@
 <%@page import="webservices.WSProveedores"%>
 <%@page import="webservices.DataReserva"%>
 <%@page import="webservices.DataReservas"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%><!DOCTYPE html>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,22 +31,25 @@
                 if(reservas!=null && reservas.getReservas().size()==0){
                 %>
                 <li class="list-group-item">
-                    <h3>No se encontraron reservas</h3>
+                    <h4>No se encontraron reservas</h4>
                 </li>
                 <%}else{
                     for(int i=0; i < reservas.getReservas().size(); i++){
                         DataReserva r = reservas.getReservas().get(i);
 
                         WSProveedores wsp = (WSProveedores) request.getAttribute("webServiceP");
-                        DataRsRp SyP = wsp.traerRsRp( r.getNumero(), r.getCliente());
+                        boolean control = wsp.facturado(r.getNumero(),r.getCliente(),(String) session.getAttribute("nickProveedor"));
+                        DataRsRp SyP = wsp.traerRsRp(r.getNumero(), r.getCliente());
                         List<DtRP> promosDeR = SyP.getPromociones();
                         List<DtRS> serviciosDeR = SyP.getServicios();
                 %>
                 <div class="panel panel-primary">
                     <div class="panel-heading clearfix">
-                        <h4 class="pull-left">Reserva #<%= r.getNumero() %></h4>
-                        <%if(r.getEstado().equals("Pagada")){%>
-                        <button type="button" class="btn btn-primary pull-right">Facturar</button>
+                        <h4 class="pull-left" >Reserva #<%= r.getNumero() %></h4>
+                        <%if(r.getEstado().equals("Pagada") && control){%>
+                        <button type="button" id="boton" class="btn btn-primary pull-right" onclick="facturar(this.parentElement)" >Facturar</button>
+                        <input type="text" id="nroReserva" hidden="" value="<%= r.getNumero() %>"/>
+                        <input type="text" id="cliente" hidden="" value="<%= r.getCliente() %>"/>
                         <%}%>
                     </div>
                     <div class="panel-body">
@@ -69,16 +69,17 @@
                             <% if(serviciosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">                                
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" style="border-color: #337AB7;">
-                                        <h4>Servicios</h4>
+                                    <li class="list-group-item botonVer" onclick="mostrarOcultar(this.parentElement, 'Servicios')" 
+                                        role="button" style="border-color: #337AB7;">
+                                        <h4>Ver Servicios</h4>
                                     </li>
                                     <% for(int aux=0; aux < serviciosDeR.size(); aux++ ){ %>
                                     <%
                                         DtRS sr = serviciosDeR.get(aux);
                                         DataServicio s = wsp.seleccionarServicioAListar( (String)session.getAttribute("nickProveedor") , sr.getServicio());
                                     %>
-                                    <li class="list-group-item" style="border-color: #337AB7">
-                                        <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %></h4>
+                                    <li class="list-group-item servOculto" style="border-color: #337AB7; display:none">
+                                        <h4><%= sr.getServicio() %>: $<%= Math.round(s.getPrecio()) %> x <%= sr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
                                 </ul>                              
@@ -87,8 +88,9 @@
                             <% if(promosDeR.size()>0){ %>
                             <li class="list-group-item" style="border-color: #337AB7;">
                                 <ul class="list-group" style="color: #337AB7">
-                                    <li class="list-group-item active" style="border-color: #337AB7;">
-                                        <h4>Promociones</h4>
+                                    <li class="list-group-item botonVer" onclick="mostrarOcultar(this.parentElement,'Promociones')" 
+                                        role="button" style="border-color: #337AB7;">
+                                        <h4>Ver Promociones</h4>
                                     </li>
                                     <% for(int aux=0; aux< promosDeR.size(); aux++ ){ %>
                                     <%
@@ -96,8 +98,8 @@
                                     DataPromocion p = wsp.seleccionarPromocionAListar( (String)session.getAttribute("nickProveedor") , pr.getPromocion());
                                     
                                     %>
-                                    <li class="list-group-item" style="border-color: #337AB7">
-                                        <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %></h4>
+                                    <li class="list-group-item promoOculta" style="border-color: #337AB7;display:none">
+                                        <h4><%= pr.getPromocion() %>: $<%= Math.round(p.getTotal()) %> x <%= pr.getCantidad() %></h4>
                                     </li>
                                     <%}%>
                                 </ul>
@@ -136,5 +138,7 @@
         
         <script src="/DispositivoMovil/JS/jQuery.js"></script>
         <script src="/DispositivoMovil/Bootstrap/js/bootstrap.min.js"></script>
+        <script src="/DispositivoMovil/JS/javascript.js"></script>
     </body>
 </html>
+<%}%>

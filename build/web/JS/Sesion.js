@@ -21,7 +21,7 @@ function verificarProveedor(claveIngresada){
         }
         console.log(this);
     };
-    request.open("POST","ServletSesion",true );
+    request.open("POST","../ServletSesion",true );
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     request.send("verificarProveedor="+claveProv);
 
@@ -29,10 +29,11 @@ function verificarProveedor(claveIngresada){
 
 function iniciarSesion(form){
     var password = form.querySelector("input[id=password]").value;
-    //password = sha1(password);
+    password = sha1(password);
     var nickname = form.querySelector("input[id=claveProveedor]").value;
+    var recordarme = form.querySelector("input[type=checkbox]").checked;//Toma el valor 'true' si esta seleccionado
     var request = new XMLHttpRequest();
-    request.open("POST","ServletSesion",true );
+    request.open("POST","../ServletSesion",true );
     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     request.send("verificarPassword="+password+"&proveedor="+nickname);
     request.onreadystatechange = function(){
@@ -40,9 +41,14 @@ function iniciarSesion(form){
         if(this.status===200 && this.readyState ===4){
             if(this.responseText === 'passOK'){
                 var request2 = new XMLHttpRequest();
-                request2.open("POST","ServletSesion",true );
+                request2.open("POST","../ServletSesion",true );
                 request2.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-                request2.send("claveProveedor="+nickname);
+                
+                if(recordarme === false)
+                    request2.send("claveProveedor="+nickname);
+                else
+                    request2.send("claveProveedor="+nickname+"&recordarme=true");
+                
                 request2.onreadystatechange = function(){
                     if(this.status===200 && this.readyState ===4){
                         window.location = "/DispositivoMovil/Vistas/Servicios.jsp";
@@ -57,7 +63,7 @@ function iniciarSesion(form){
             }
         }else
             return false;
-    };    
+    };  
 }
 
 

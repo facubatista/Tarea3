@@ -40,6 +40,18 @@
 <message name="validarPasswordProvResponse">
 <part name="parameters" element="tns:validarPasswordProvResponse"></part>
 </message>
+<message name="facturar">
+<part name="parameters" element="tns:facturar"></part>
+</message>
+<message name="facturarResponse">
+<part name="parameters" element="tns:facturarResponse"></part>
+</message>
+<message name="facturado">
+<part name="parameters" element="tns:facturado"></part>
+</message>
+<message name="facturadoResponse">
+<part name="parameters" element="tns:facturadoResponse"></part>
+</message>
 <message name="getNombreProveedor">
 <part name="parameters" element="tns:getNombreProveedor"></part>
 </message>
@@ -82,6 +94,14 @@
 <operation name="validarPasswordProv">
 <input wsam:Action="http://WebServices/WSProveedores/validarPasswordProvRequest" message="tns:validarPasswordProv"></input>
 <output wsam:Action="http://WebServices/WSProveedores/validarPasswordProvResponse" message="tns:validarPasswordProvResponse"></output>
+</operation>
+<operation name="facturar">
+<input wsam:Action="http://WebServices/WSProveedores/facturarRequest" message="tns:facturar"></input>
+<output wsam:Action="http://WebServices/WSProveedores/facturarResponse" message="tns:facturarResponse"></output>
+</operation>
+<operation name="facturado">
+<input wsam:Action="http://WebServices/WSProveedores/facturadoRequest" message="tns:facturado"></input>
+<output wsam:Action="http://WebServices/WSProveedores/facturadoResponse" message="tns:facturadoResponse"></output>
 </operation>
 <operation name="getNombreProveedor">
 <input wsam:Action="http://WebServices/WSProveedores/getNombreProveedorRequest" message="tns:getNombreProveedor"></input>
@@ -144,6 +164,24 @@
 </output>
 </operation>
 <operation name="validarPasswordProv">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="facturar">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="facturado">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

@@ -3,7 +3,14 @@
     if(session.getAttribute("nomProveedor")!=null){
         nomProv = (String) session.getAttribute("nomProveedor");
     }
-
+    
+    /*Cookie[] cookies = request.getCookies();
+    for(Cookie c: cookies){
+        if(c.getName().equals("nickProveedor")){
+            session.setAttribute("nickProveedor", c.getValue());
+            request.getRequestDispatcher("ServletServProm?Servicios=true").forward(request, response);
+        }
+    }*/
     %>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
