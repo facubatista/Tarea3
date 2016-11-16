@@ -70,6 +70,12 @@
 <message name="traerRsRpResponse">
 <part name="parameters" element="tns:traerRsRpResponse"></part>
 </message>
+<message name="isFacturada">
+<part name="parameters" element="tns:isFacturada"></part>
+</message>
+<message name="isFacturadaResponse">
+<part name="parameters" element="tns:isFacturadaResponse"></part>
+</message>
 <portType name="WSProveedores">
 <operation name="seleccionarServicioAListar">
 <input wsam:Action="http://WebServices/WSProveedores/seleccionarServicioAListarRequest" message="tns:seleccionarServicioAListar"></input>
@@ -114,6 +120,10 @@
 <operation name="traerRsRp">
 <input wsam:Action="http://WebServices/WSProveedores/traerRsRpRequest" message="tns:traerRsRp"></input>
 <output wsam:Action="http://WebServices/WSProveedores/traerRsRpResponse" message="tns:traerRsRpResponse"></output>
+</operation>
+<operation name="isFacturada">
+<input wsam:Action="http://WebServices/WSProveedores/isFacturadaRequest" message="tns:isFacturada"></input>
+<output wsam:Action="http://WebServices/WSProveedores/isFacturadaResponse" message="tns:isFacturadaResponse"></output>
 </operation>
 </portType>
 <binding name="WSProveedoresPortBinding" type="tns:WSProveedores">
@@ -209,6 +219,15 @@
 </output>
 </operation>
 <operation name="traerRsRp">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="isFacturada">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

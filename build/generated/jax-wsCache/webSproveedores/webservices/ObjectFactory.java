@@ -44,7 +44,9 @@ public class ObjectFactory {
     private final static QName _GetNombreProveedor_QNAME = new QName("http://WebServices/", "getNombreProveedor");
     private final static QName _ListarPromocionesBuscadas_QNAME = new QName("http://WebServices/", "listarPromocionesBuscadas");
     private final static QName _ListarServiciosBuscadosResponse_QNAME = new QName("http://WebServices/", "listarServiciosBuscadosResponse");
+    private final static QName _IsFacturadaResponse_QNAME = new QName("http://WebServices/", "isFacturadaResponse");
     private final static QName _SeleccionarPromocionAListarResponse_QNAME = new QName("http://WebServices/", "seleccionarPromocionAListarResponse");
+    private final static QName _IsFacturada_QNAME = new QName("http://WebServices/", "isFacturada");
     private final static QName _SeleccionarServicioAListar_QNAME = new QName("http://WebServices/", "seleccionarServicioAListar");
 
     /**
@@ -215,11 +217,27 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link IsFacturadaResponse }
+     * 
+     */
+    public IsFacturadaResponse createIsFacturadaResponse() {
+        return new IsFacturadaResponse();
+    }
+
+    /**
      * Create an instance of {@link SeleccionarPromocionAListarResponse }
      * 
      */
     public SeleccionarPromocionAListarResponse createSeleccionarPromocionAListarResponse() {
         return new SeleccionarPromocionAListarResponse();
+    }
+
+    /**
+     * Create an instance of {@link IsFacturada }
+     * 
+     */
+    public IsFacturada createIsFacturada() {
+        return new IsFacturada();
     }
 
     /**
@@ -499,12 +517,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsFacturadaResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "isFacturadaResponse")
+    public JAXBElement<IsFacturadaResponse> createIsFacturadaResponse(IsFacturadaResponse value) {
+        return new JAXBElement<IsFacturadaResponse>(_IsFacturadaResponse_QNAME, IsFacturadaResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SeleccionarPromocionAListarResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://WebServices/", name = "seleccionarPromocionAListarResponse")
     public JAXBElement<SeleccionarPromocionAListarResponse> createSeleccionarPromocionAListarResponse(SeleccionarPromocionAListarResponse value) {
         return new JAXBElement<SeleccionarPromocionAListarResponse>(_SeleccionarPromocionAListarResponse_QNAME, SeleccionarPromocionAListarResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link IsFacturada }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://WebServices/", name = "isFacturada")
+    public JAXBElement<IsFacturada> createIsFacturada(IsFacturada value) {
+        return new JAXBElement<IsFacturada>(_IsFacturada_QNAME, IsFacturada.class, null, value);
     }
 
     /**

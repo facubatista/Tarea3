@@ -41,8 +41,16 @@ public class ServletFactura extends HttpServlet {
         String proveedor = (String)sesion.getAttribute("nickProveedor");
         String cliente = (String)request.getParameter("cliente");
         String nroReserva = (String)request.getParameter("nroReserva");
-        int numero;
-        numero = Integer.valueOf(nroReserva);
+        String is = (String)request.getParameter("isFact");
+        int numero = 0;
+        if(nroReserva!=null){
+        numero = Integer.parseInt(nroReserva);}
+        if(is!=null){
+            if(wsp.isFacturada(numero, cliente))
+                response.getWriter().write("true");
+            else
+                response.getWriter().write("false");
+        }else{
         if(!proveedor.isEmpty() && !cliente.isEmpty() && !nroReserva.isEmpty()){
             wsp.facturar(numero, cliente, proveedor);
             if(!wsp.facturado(numero, cliente, proveedor)){
@@ -52,7 +60,7 @@ public class ServletFactura extends HttpServlet {
             }
         } else {
             response.getWriter().write("false");
-        }
+        }}
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

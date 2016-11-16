@@ -210,4 +210,22 @@ public interface WSProveedores {
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1);
 
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "isFacturada", targetNamespace = "http://WebServices/", className = "webservices.IsFacturada")
+    @ResponseWrapper(localName = "isFacturadaResponse", targetNamespace = "http://WebServices/", className = "webservices.IsFacturadaResponse")
+    @Action(input = "http://WebServices/WSProveedores/isFacturadaRequest", output = "http://WebServices/WSProveedores/isFacturadaResponse")
+    public boolean isFacturada(
+        @WebParam(name = "arg0", targetNamespace = "")
+        Integer arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
 }

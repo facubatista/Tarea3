@@ -12,6 +12,10 @@
 
 <xs:element name="getNombreProveedorResponse" type="tns:getNombreProveedorResponse"></xs:element>
 
+<xs:element name="isFacturada" type="tns:isFacturada"></xs:element>
+
+<xs:element name="isFacturadaResponse" type="tns:isFacturadaResponse"></xs:element>
+
 <xs:element name="listarPromocionesBuscadas" type="tns:listarPromocionesBuscadas"></xs:element>
 
 <xs:element name="listarPromocionesBuscadasResponse" type="tns:listarPromocionesBuscadasResponse"></xs:element>
@@ -67,6 +71,19 @@
 <xs:element name="origen" type="xs:string" minOccurs="0"></xs:element>
 <xs:element name="destino" type="xs:string" minOccurs="0"></xs:element>
 <xs:element name="categorias" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isFacturada">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int" minOccurs="0"></xs:element>
+<xs:element name="arg1" type="xs:string" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="isFacturadaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"></xs:element>
 </xs:sequence>
 </xs:complexType>
 
